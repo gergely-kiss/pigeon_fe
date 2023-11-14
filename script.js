@@ -1,22 +1,22 @@
 const track = document.getElementById("image-track");
 
-window.onmousedown = e => {
-    track.dataset.mouseDownAt = e.clientX;
-}
+const startInteraction = (clientX) => {
+    track.dataset.mouseDownAt = clientX;
+};
 
-window.onmouseup = () => {
+const endInteraction = () => {
     track.dataset.mouseDownAt = "0";
-    track.dataset.dp = track.dataset.percentage; // Update dp to maintain continuity
-}
+    track.dataset.dp = track.dataset.percentage;
+};
 
-window.onmousemove = e => {
+const moveInteraction = (clientX) => {
     if(track.dataset.mouseDownAt === "0") return;
 
-    const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
-          maxDelta = window.innerWidth / 2;
+    const mouseDelta = parseFloat(track.dataset.mouseDownAt) - clientX,
+        maxDelta = window.innerWidth / 2;
     const sensitivity = 7;
     const percentage = (mouseDelta / maxDelta) * -100 / sensitivity;
-    let nextPercentage = parseFloat(track.dataset.dp || 0) + percentage; // Ensure cumulative movement
+    let nextPercentage = parseFloat(track.dataset.dp || 0) + percentage;
     track.dataset.percentage = nextPercentage;
 
     track.animate ({
@@ -28,4 +28,14 @@ window.onmousemove = e => {
             objectPosition: `${nextPercentage + 100}% 50%`
         }, {duration:1200, fill: "forwards" });
     }
-}
+};
+
+// Mouse Events
+window.onmousedown = e => startInteraction(e.clientX);
+window.onmouseup = endInteraction;
+window.onmousemove = e => moveInteraction(e.clientX);
+
+// Touch Events
+window.ontouchstart = e => startInteraction(e.touches[0].clientX);
+window.ontouchend = endInteraction;
+window.ontouchmove = e => moveInteraction(e.touches[0].clientX);
