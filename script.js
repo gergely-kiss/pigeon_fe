@@ -1,3 +1,18 @@
+const initImages = () => {
+    const imageTrack = document.getElementById('image-track');
+    const imagePaths = ['img/img_1.png', 'img/img_2.png', 'img/img_3.png', 'img/img_4.png', 'img/img_5.png', 'img/img_6.png', 'img/img_7.png'];
+
+    imagePaths.forEach(imagePath => {
+        let img = document.createElement('img');
+        img.src = imagePath;
+        img.className = 'image';
+        img.draggable = false;
+        imageTrack.appendChild(img);
+    });
+};
+
+document.addEventListener('DOMContentLoaded', initImages);
+
 const track = document.getElementById("image-track");
 
 const startInteraction = (clientX) => {
