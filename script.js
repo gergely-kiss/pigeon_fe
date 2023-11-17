@@ -54,3 +54,24 @@ window.onmousemove = e => moveInteraction(e.clientX);
 window.ontouchstart = e => startInteraction(e.touches[0].clientX);
 window.ontouchend = endInteraction;
 window.ontouchmove = e => moveInteraction(e.touches[0].clientX);
+
+// Google login
+function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+
+    fetch('/google-signin', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: id_token })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Handle the response (e.g., save the token, redirect, etc.)
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}

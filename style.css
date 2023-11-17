@@ -4,12 +4,31 @@ body {
     background-color: black;
     margin: 0rem;
     overflow: hidden;
+    position: relative;
+}
+/* Google login */
+.g-signin2 {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    position: fixed; /* Position the element absolutely */
+    top: 2%;            /* Align to the top of the body */
+    right: 0;          /* Align to the right of the body */
+}
+/* Responsive styling for mobile devices */
+@media (max-width: 768px) {
+    .g-signin2 {
+        width: 150px; /* Adjust the size for smaller screens */
+        top: 10px;    /* Position it at the top */
+        right: 10px;  /* Add some right margin for better visibility */
+        bottom: auto; /* Remove the bottom property */
+    }
 }
 #image-track > .image{
     width:40vmin;
     height: 56vmin;
     object-fit: cover;
-    object-position: centre;
+    object-position: center;
     -webkit-user-select: none;
     -moz-user-select: none;   
     -ms-user-select: none;    
